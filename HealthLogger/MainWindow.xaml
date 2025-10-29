@@ -55,7 +55,7 @@
                    VerticalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            
+
             <Button Style="{StaticResource MaterialDesignFlatButton}"
                     HorizontalContentAlignment="Left"
                     Padding="16 0"
@@ -66,21 +66,6 @@
                                    Width="24" Height="24"
                                    Foreground="{DynamicResource PrimaryHueMidBrush}" />
                     <TextBlock Text="Registrar Paciente"
-                               FontSize="14" Margin="15 0 0 0"
-                               VerticalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-
-            <Button Style="{StaticResource MaterialDesignFlatButton}"
-                    HorizontalContentAlignment="Left"
-                    Padding="16 0"
-                    Margin="10 5"
-                    Click="HistorialesClinicos_Click">
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                    <icon:PackIcon Kind="ClipboardTextOutline"
-                                   Width="24" Height="24"
-                                   Foreground="{DynamicResource PrimaryHueMidBrush}" />
-                    <TextBlock Text="Historiales Clínicos"
                                FontSize="14" Margin="15 0 0 0"
                                VerticalAlignment="Center"/>
                 </StackPanel>

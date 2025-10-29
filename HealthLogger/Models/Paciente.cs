@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace HealthLogger.Models
 {
@@ -39,7 +34,19 @@ namespace HealthLogger.Models
         public int Edad => (int)((DateTime.Now - FechaNacimiento).TotalDays / 365.25);
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
-        public int Estado { get; set; } // 1 = activo, 0 = oculto
+        private int estado;
+        public int Estado
+        {
+            get => estado;
+            set
+            {
+                if (estado != value)
+                {
+                    estado = value;
+                    OnPropertyChanged(nameof(Estado));
+                }
+            }
+        }
         protected void OnPropertyChanged(string propertyName) =>
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }

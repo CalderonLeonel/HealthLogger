@@ -34,7 +34,7 @@ namespace HealthLogger.Data
                 Id INTEGER PRIMARY KEY AUTOINCREMENT,
                 Nombres TEXT NOT NULL,
                 Apellidos TEXT NOT NULL,
-                CI TEXT UNIQUE,
+                CI TEXT,
                 FechaNacimiento TEXT,
                 Sexo TEXT,
                 Telefono TEXT,
@@ -45,7 +45,7 @@ namespace HealthLogger.Data
                 Observaciones TEXT,
                 CreatedAt TEXT NOT NULL,
                 UpdatedAt TEXT NOT NULL,
-                Estado INTEGER NOT NULL DEFAULT 1
+                Estado INTEGER NOT NULL DEFAULT 0
             );";
 
             using var cmd = new SQLiteCommand(sql, conn);

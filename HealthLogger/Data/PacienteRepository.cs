@@ -24,18 +24,31 @@ namespace HealthLogger.Data
             conn.Execute(sql, paciente);
         }
 
-        public static List<Paciente> ObtenerPacientes(bool incluirOcultos = false)
+        public static List<Paciente> ObtenerPacientes(bool incluirOcultos)
         {
             using var conn = Database.GetConnection();
             if (incluirOcultos)
-                return conn.Query<Paciente>("SELECT * FROM Pacientes ORDER BY CreatedAt").ToList();
+                // Mostrar TODOS (visibles + ocultos)
+                return conn.Query<Paciente>(
+                    "SELECT Id, Nombres, Apellidos, CI, Sexo, Telefono, FechaNacimiento, Estado, CreatedAt, UpdatedAt FROM Pacientes ORDER BY UpdatedAt DESC"
+                ).ToList();
 
-            return conn.Query<Paciente>("SELECT * FROM Pacientes WHERE Estado=1 ORDER BY Apellidos").ToList();
+            // Mostrar solo los activos
+            return conn.Query<Paciente>(
+                "SELECT Id, Nombres, Apellidos, CI, Sexo, Telefono, FechaNacimiento, Estado, CreatedAt, UpdatedAt FROM Pacientes WHERE Estado = 1 ORDER BY UpdatedAt DESC"
+            ).ToList();
         }
+
         public static void OcultarPaciente(int id)
         {
             using var conn = Database.GetConnection();
             string sql = "UPDATE Pacientes SET Estado=0, UpdatedAt=@UpdatedAt WHERE Id=@Id";
+            conn.Execute(sql, new { UpdatedAt = DateTime.UtcNow, Id = id });
+        }
+        public static void DesocultarPaciente(int id)
+        {
+            using var conn = Database.GetConnection();
+            string sql = "UPDATE Pacientes SET Estado=1, UpdatedAt=@UpdatedAt WHERE Id=@Id";
             conn.Execute(sql, new { UpdatedAt = DateTime.UtcNow, Id = id });
         }
         public static Paciente ObtenerPacientePorId(int id)

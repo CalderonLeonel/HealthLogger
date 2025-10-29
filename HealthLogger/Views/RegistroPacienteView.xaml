@@ -6,69 +6,153 @@
              xmlns:local="clr-namespace:HealthLogger.Views"
              mc:Ignorable="d" 
              xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
-             d:DesignHeight="550" d:DesignWidth="800">
-    <ScrollViewer>
-        <StackPanel Margin="30" Width="500" HorizontalAlignment="Center">
+             FontFamily="Roboto" FontSize="16"
+             d:DesignHeight="650" d:DesignWidth="800">
 
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Padding="20">
+        <StackPanel Width="550" HorizontalAlignment="Center" Margin="0 10 0 30">
+
+            <!-- Título principal -->
             <TextBlock Text="Registro de Paciente" 
-                       FontSize="22" FontWeight="Bold"
+                       FontSize="26" FontWeight="Bold"
                        Foreground="{DynamicResource PrimaryHueMidBrush}"
-                       Margin="0 0 0 20"/>
+                       TextAlignment="Center" Margin="0 0 0 25"/>
 
-            <!-- DATOS PERSONALES -->
-            <TextBox materialDesign:HintAssist.Hint="Nombres"
-                     Text="{Binding Paciente.Nombres}"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            <!-- ====================== DATOS PERSONALES ====================== -->
+            <TextBlock Text="Datos Personales"
+                       FontSize="18" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                       Margin="0 0 0 10"/>
 
-            <TextBox materialDesign:HintAssist.Hint="Apellidos"
-                     Text="{Binding Paciente.Apellidos}"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            <StackPanel Margin="0 0 0 10">
+                <TextBox materialDesign:HintAssist.Hint="Nombres"
+                         Text="{Binding Paciente.Nombres, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="SoloLetras"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-            <TextBox materialDesign:HintAssist.Hint="Cédula / CI"
-                     Text="{Binding Paciente.CI}"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <TextBox materialDesign:HintAssist.Hint="Apellidos"
+                         Text="{Binding Paciente.Apellidos, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="SoloLetras"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-            <StackPanel Orientation="Horizontal" Margin="0 10 0 0">
-                <DatePicker Width="240" SelectedDate="{Binding Paciente.FechaNacimiento}"
-                            materialDesign:HintAssist.Hint="Fecha de Nacimiento" />
-                <ComboBox Width="240" Margin="20 0 0 0"
-                          materialDesign:HintAssist.Hint="Sexo"
-                          ItemsSource="{Binding Sexos}"
-                          SelectedItem="{Binding Paciente.Sexo}" />
+                <TextBox materialDesign:HintAssist.Hint="Cédula / CI"
+                         Text="{Binding Paciente.CI, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="SoloNumeros"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+                <Grid Margin="0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!-- 50% -->
+                        <ColumnDefinition Width="2*" />
+                        <!-- 50% -->
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Fecha de Nacimiento:" 
+                           FontSize="18" Grid.Column="0"
+                           TextAlignment="Left" Margin="0 5 5 0">
+                    </TextBlock>
+                    <DatePicker SelectedDate="{Binding Paciente.FechaNacimiento, Mode=TwoWay}"
+                            materialDesign:HintAssist.Hint="Fecha de Nacimiento" Margin="5 0 0 5" Grid.Column="1"/>
+                </Grid>
+                <Grid Margin="0 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <!-- 50% -->
+                        <ColumnDefinition Width="2*" />
+                        <!-- 50% -->
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Text="Sexo:" 
+                           FontSize="18" Grid.Column="0"
+                           TextAlignment="Left" Margin="0 5 5 0">
+                    </TextBlock>
+                    <ComboBox Width="360" HorizontalAlignment="Left"
+                        materialDesign:HintAssist.Hint="Sexo"
+                        DisplayMemberPath="Texto"
+                        SelectedValuePath="Valor"
+                        ItemsSource="{Binding OpcionesSexo}"
+                        Grid.Column="1"
+                        Margin="5 0 0 5"
+                        SelectedValue="{Binding Paciente.Sexo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                </Grid>
             </StackPanel>
 
-            <!-- CONTACTO -->
-            <TextBox materialDesign:HintAssist.Hint="Teléfono"
-                     Text="{Binding Paciente.Telefono}"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            <Separator Margin="0 10 0 15" Opacity="0.4"/>
 
-            <TextBox materialDesign:HintAssist.Hint="Contacto de Emergencia"
-                     Text="{Binding Paciente.ContactoEmergencia}"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            <!-- ====================== CONTACTO ====================== -->
+            <TextBlock Text="Contacto"
+                       FontSize="18" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                       Margin="0 0 0 10"/>
 
-            <TextBox materialDesign:HintAssist.Hint="Teléfono de Emergencia"
-                     Text="{Binding Paciente.TelefonoEmergencia}"
-                     Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            <StackPanel Margin="0 0 0 10">
+                <TextBox materialDesign:HintAssist.Hint="Teléfono"
+                         Text="{Binding Paciente.Telefono, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="SoloNumeros"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-            <!-- HISTORIAL -->
-            <TextBox materialDesign:HintAssist.Hint="Antecedentes Médicos"
-                     AcceptsReturn="True" Height="60"
-                     Text="{Binding Paciente.Antecedentes}" />
+                <TextBox materialDesign:HintAssist.Hint="Contacto de Emergencia"
+                         Text="{Binding Paciente.ContactoEmergencia, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="SoloLetras"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
 
-            <TextBox materialDesign:HintAssist.Hint="Alergias"
-                     AcceptsReturn="True" Height="50"
-                     Text="{Binding Paciente.Alergias}" />
+                <TextBox materialDesign:HintAssist.Hint="Teléfono de Emergencia"
+                         Text="{Binding Paciente.TelefonoEmergencia, UpdateSourceTrigger=PropertyChanged}"
+                         PreviewTextInput="SoloNumeros"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            </StackPanel>
 
-            <TextBox materialDesign:HintAssist.Hint="Observaciones"
-                     AcceptsReturn="True" Height="60"
-                     Text="{Binding Paciente.Observaciones}" />
+            <Separator Margin="0 10 0 15" Opacity="0.4"/>
 
-            <Button Content="Guardar Paciente"
-                    Command="{Binding GuardarCommand}"
-                    Style="{StaticResource MaterialDesignRaisedButton}"
-                    Margin="0 20 0 0"
-                    HorizontalAlignment="Right"
-                    Width="160" />
+            <!-- ====================== HISTORIAL CLÍNICO ====================== -->
+            <TextBlock Text="Historial Clínico"
+                       FontSize="18" FontWeight="SemiBold"
+                       Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                       Margin="0 0 0 10"/>
+
+            <StackPanel Margin="0 0 0 10">
+
+                <TextBlock Text="Antecedentes Médicos" 
+                           FontWeight="Medium" 
+                           Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                           Margin="3 5 0 3"/>
+                <TextBox AcceptsReturn="True" Height="70"
+                         Text="{Binding Paciente.Antecedentes}"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+                <TextBlock Text="Alergias" 
+                           FontWeight="Medium" 
+                           Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                           Margin="3 5 0 3"/>
+                <TextBox AcceptsReturn="True" Height="60"
+                         Text="{Binding Paciente.Alergias}"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+
+                <TextBlock Text="Observaciones" 
+                           FontWeight="Medium" 
+                           Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                           Margin="3 5 0 3"/>
+                <TextBox AcceptsReturn="True" Height="70"
+                         Text="{Binding Paciente.Observaciones}"
+                         TextWrapping="Wrap"
+                         VerticalScrollBarVisibility="Auto"
+                         Style="{StaticResource MaterialDesignOutlinedTextBox}" />
+            </StackPanel>
+
+            <!-- ====================== BOTÓN GUARDAR ====================== -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Content="Guardar Paciente"
+                        Command="{Binding GuardarCommand}"
+                        Style="{StaticResource MaterialDesignRaisedButton}"
+                        Margin="0 15 0 0"
+                        Padding="12 6"
+                        Width="180"
+                        HorizontalAlignment="Right" />
+            </StackPanel>
 
         </StackPanel>
     </ScrollViewer>

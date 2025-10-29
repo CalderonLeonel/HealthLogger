@@ -9,11 +9,7 @@ using System.Windows.Media.Animation;
 
 namespace HealthLogger.Views
 {
-    public class OpcionSexo
-    {
-        public string Valor { get; set; }   // "M" o "F"
-        public string Texto { get; set; }   // "Hombre" o "Mujer"
-    }
+
 
     public partial class HistorialClinicoView : UserControl
     {
@@ -99,6 +95,8 @@ namespace HealthLogger.Views
             originalValues[nameof(Paciente.FechaNacimiento)] = Paciente?.FechaNacimiento != null
                 ? Paciente.FechaNacimiento.ToString("o")
                 : string.Empty;
+            originalValues[nameof(Paciente.Sexo)] = SafeStr(Paciente?.ContactoEmergencia);
+            originalValues[nameof(Paciente.Sexo)] = SafeStr(Paciente?.TelefonoEmergencia);
             originalValues[nameof(Paciente.Antecedentes)] = SafeStr(Paciente?.Antecedentes);
             originalValues[nameof(Paciente.Alergias)] = SafeStr(Paciente?.Alergias);
             originalValues[nameof(Paciente.Observaciones)] = SafeStr(Paciente?.Observaciones);
@@ -118,6 +116,8 @@ namespace HealthLogger.Views
             var currentFecha = Paciente?.FechaNacimiento != null ? Paciente.FechaNacimiento.ToString("o") : string.Empty;
             if (!StringEquals(origFecha, currentFecha)) return true;
 
+            if (!StringEquals(originalValues[nameof(Paciente.Sexo)], SafeStr(Paciente?.ContactoEmergencia))) return true;
+            if (!StringEquals(originalValues[nameof(Paciente.Sexo)], SafeStr(Paciente?.TelefonoEmergencia))) return true;
             if (!StringEquals(originalValues[nameof(Paciente.Antecedentes)], SafeStr(Paciente?.Antecedentes))) return true;
             if (!StringEquals(originalValues[nameof(Paciente.Alergias)], SafeStr(Paciente?.Alergias))) return true;
             if (!StringEquals(originalValues[nameof(Paciente.Observaciones)], SafeStr(Paciente?.Observaciones))) return true;

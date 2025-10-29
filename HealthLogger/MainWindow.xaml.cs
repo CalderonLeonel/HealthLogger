@@ -4,6 +4,11 @@ using HealthLogger.Views;
 
 namespace HealthLogger
 {
+    public class OpcionSexo
+    {
+        public string Valor { get; set; }   // "M" o "F"
+        public string Texto { get; set; }   // "Hombre" o "Mujer"
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -35,10 +40,7 @@ namespace HealthLogger
             NavigateTo(new PacientesView());
         }
 
-        private void HistorialesClinicos_Click(object sender, RoutedEventArgs e)
-        {
-            //NavigateTo(new HistorialClinicoView());
-        }
+
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {
