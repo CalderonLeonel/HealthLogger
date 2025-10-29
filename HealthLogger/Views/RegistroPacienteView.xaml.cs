@@ -12,17 +12,19 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using HealthLogger.ViewModels;
 
-namespace HealthRegister
+namespace HealthLogger.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Lógica de interacción para RegistroPacienteView.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RegistroPacienteView : UserControl
     {
-        public MainWindow()
+        public RegistroPacienteView()
         {
             InitializeComponent();
+            DataContext = new RegistroPacienteViewModel();
         }
     }
 }

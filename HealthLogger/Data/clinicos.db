@@ -1,0 +1,14 @@
+CREATE TABLE IF NOT EXISTS Pacientes (
+    Id INTEGER PRIMARY KEY AUTOINCREMENT,
+    Nombres TEXT NOT NULL,
+    Apellidos TEXT NOT NULL,
+    CI TEXT UNIQUE,
+    FechaNacimiento TEXT,
+    Sexo TEXT,
+    Telefono TEXT,
+    ContactoEmergencia TEXT,
+    TelefonoEmergencia TEXT,
+    Antecedentes TEXT,
+    Alergias TEXT,
+    Observaciones TEXT
+);
