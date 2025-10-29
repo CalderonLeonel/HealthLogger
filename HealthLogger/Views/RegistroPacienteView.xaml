@@ -115,7 +115,7 @@
                            FontWeight="Medium" 
                            Foreground="{DynamicResource PrimaryHueDarkBrush}"
                            Margin="3 5 0 3"/>
-                <TextBox x:Name="TxtAntecedentes" AcceptsReturn="True" Height="70"
+                <TextBox x:Name="TxtAntecedentes" AcceptsReturn="True" Height="80"
                          Text="{Binding Paciente.Antecedentes, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
                          TextChanged="AutoGrowTextBox"
@@ -126,7 +126,7 @@
                            FontWeight="Medium" 
                            Foreground="{DynamicResource PrimaryHueDarkBrush}"
                            Margin="3 5 0 3"/>
-                <TextBox x:Name="TxtAlergias" AcceptsReturn="True" Height="60"
+                <TextBox x:Name="TxtAlergias" AcceptsReturn="True" Height="80"
                          Text="{Binding Paciente.Alergias, UpdateSourceTrigger=PropertyChanged}"
                          TextWrapping="Wrap"
                          TextChanged="AutoGrowTextBox"
