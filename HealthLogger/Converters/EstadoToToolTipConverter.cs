@@ -1,7 +1,5 @@
-﻿using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Windows.Data;
-using System.Diagnostics;
 namespace HealthLogger.Converters
 {
     public class EstadoToToolTipConverter : IValueConverter
