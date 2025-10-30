@@ -1,11 +1,7 @@
 ﻿using HealthLogger.Data;
 using HealthLogger.Models;
-using System;
-using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
 
 namespace HealthLogger.Views
 {

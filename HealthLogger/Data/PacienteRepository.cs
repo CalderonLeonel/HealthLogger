@@ -1,7 +1,5 @@
 ﻿using Dapper;
 using HealthLogger.Models;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace HealthLogger.Data
 {

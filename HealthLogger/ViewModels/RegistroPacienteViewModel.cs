@@ -1,8 +1,5 @@
 ﻿using HealthLogger.Data;
 using HealthLogger.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
 

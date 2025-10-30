@@ -10,6 +10,7 @@
         WindowStartupLocation="CenterScreen"
         Background="{DynamicResource MaterialDesignPaper}"
         FontFamily="Roboto"
+        Icon="Resources/logo.ico"
 >
     <DockPanel>
         <!-- PANEL LATERAL -->
