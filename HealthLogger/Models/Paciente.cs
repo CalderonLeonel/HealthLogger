@@ -23,13 +23,20 @@ namespace HealthLogger.Models
                 }
             }
         }
+        public string Direccion { get; set; }
         public string Sexo { get; set; }
         public string Telefono { get; set; }
+        public string Profesion { get; set; }
+        public string EstadoCivil { get; set; }
         public string ContactoEmergencia { get; set; }
         public string TelefonoEmergencia { get; set; }
+        public string MotivoConsulta { get; set; }
+        public string EnfermedadActual { get; set; }
         public string Antecedentes { get; set; }
-        public string Alergias { get; set; }
-        public string Observaciones { get; set; }
+        public string ExamenNeurologico { get; set; }
+        public string ImpresionDiagnostica{ get; set; }
+        public string Conducta { get; set; }
+        public string Evolucion { get; set; }
 
         public int Edad => (int)((DateTime.Now - FechaNacimiento).TotalDays / 365.25);
         public DateTime CreatedAt { get; set; }

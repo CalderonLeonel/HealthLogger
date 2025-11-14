@@ -9,6 +9,11 @@ namespace HealthLogger
         public string Valor { get; set; }   // "M" o "F"
         public string Texto { get; set; }   // "Hombre" o "Mujer"
     }
+    public class OpcionEstadoCivil
+    {
+        public string Valor { get; set; }   // "M" o "F"
+        public string Texto { get; set; }   // "Hombre" o "Mujer"
+    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -39,8 +44,6 @@ namespace HealthLogger
         {
             NavigateTo(new PacientesView());
         }
-
-
 
         private void Salir_Click(object sender, RoutedEventArgs e)
         {

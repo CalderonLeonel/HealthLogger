@@ -5,14 +5,20 @@ namespace HealthLogger.Data
 {
     public static class Database
     {
-        private static readonly string dbPath = Path.Combine(
-            Directory.GetCurrentDirectory(), "Data", "clinicos.db");
+        // Carpeta en Documentos del usuario
+        private static readonly string FolderPath = Path.Combine(
+            Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+            "HealthLogger"
+        );
+
+        // Ruta completa al archivo de base de datos
+        private static readonly string dbPath = Path.Combine(FolderPath, "clinicos.db");
 
         public static SQLiteConnection GetConnection()
         {
-            string directory = Path.GetDirectoryName(dbPath)!;
-            if (!Directory.Exists(directory))
-                Directory.CreateDirectory(directory);
+            // Crear carpeta si no existe
+            if (!Directory.Exists(FolderPath))
+                Directory.CreateDirectory(FolderPath);
 
             bool crearTabla = !File.Exists(dbPath);
             if (crearTabla)
@@ -37,12 +43,19 @@ namespace HealthLogger.Data
                 CI TEXT,
                 FechaNacimiento TEXT,
                 Sexo TEXT,
+                Direccion TEXT,
                 Telefono TEXT,
+                Profesion TEXT,
+                EstadoCivil TEXT,
                 ContactoEmergencia TEXT,
                 TelefonoEmergencia TEXT,
+                MotivoConsulta TEXT,
+                EnfermedadActual TEXT,
                 Antecedentes TEXT,
-                Alergias TEXT,
-                Observaciones TEXT,
+                ExamenNeurologico TEXT,
+                ImpresionDiagnostica TEXT,
+                Conducta TEXT,
+                Evolucion TEXT,
                 CreatedAt TEXT NOT NULL,
                 UpdatedAt TEXT NOT NULL,
                 Estado INTEGER NOT NULL DEFAULT 0

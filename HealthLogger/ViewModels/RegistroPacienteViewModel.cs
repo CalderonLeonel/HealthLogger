@@ -2,6 +2,7 @@
 using HealthLogger.Models;
 using System.Windows;
 using System.Windows.Input;
+using System.IO;
 
 namespace HealthLogger.ViewModels
 {
@@ -9,7 +10,7 @@ namespace HealthLogger.ViewModels
     {
         public Paciente Paciente { get; set; } = new Paciente();
         public List<OpcionSexo> OpcionesSexo { get; set; }
-
+        public List<OpcionEstadoCivil> OpcionesEstadoCivil { get; set; }
         public ICommand GuardarCommand => new RelayCommand(GuardarPaciente);
 
         public RegistroPacienteViewModel()
@@ -21,36 +22,71 @@ namespace HealthLogger.ViewModels
                 new OpcionSexo { Valor = "M", Texto = "Hombre" },
                 new OpcionSexo { Valor = "F", Texto = "Mujer" }
             };
+            OpcionesEstadoCivil = new List<OpcionEstadoCivil>
+            {
+                new OpcionEstadoCivil { Valor = "0", Texto = "Soltero" },
+                new OpcionEstadoCivil { Valor = "1", Texto = "Casado" },
+                new OpcionEstadoCivil { Valor = "2", Texto = "Viudo" },
+                new OpcionEstadoCivil { Valor = "3", Texto = "Divorciado" },
+                new OpcionEstadoCivil { Valor = "4", Texto = "Concubino" }
+            };
         }
 
         private void GuardarPaciente()
         {
-            // Validar campos requeridos
-            if (string.IsNullOrWhiteSpace(Paciente.Nombres) ||
-                string.IsNullOrWhiteSpace(Paciente.Apellidos) ||
-                string.IsNullOrWhiteSpace(Paciente.Sexo))
+            try
             {
-                MessageBox.Show("Los campos Nombres, Apellidos, Fecha de Nacimiento y Sexo son obligatorios.",
-                                "Campos requeridos", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
+                // Validar campos requeridos
+                if (string.IsNullOrWhiteSpace(Paciente.Nombres) ||
+                    string.IsNullOrWhiteSpace(Paciente.Apellidos) ||
+                    string.IsNullOrWhiteSpace(Paciente.EstadoCivil) ||
+                    string.IsNullOrWhiteSpace(Paciente.Sexo))
+                {
+                    MessageBox.Show("Los campos Nombres, Apellidos, Fecha de Nacimiento, Estado Civil y Género son obligatorios.",
+                                    "Campos requeridos", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
+                // Reemplazar null por cadena vacía para evitar errores en la BD
+                Paciente.CI ??= "";
+                Paciente.Direccion ??= "";
+                Paciente.Telefono ??= "";
+                Paciente.Profesion ??= "";
+                Paciente.ContactoEmergencia ??= "";
+                Paciente.TelefonoEmergencia ??= "";
+                Paciente.MotivoConsulta ??= "";
+                Paciente.EnfermedadActual ??= "";
+                Paciente.Antecedentes ??= "";
+                Paciente.ExamenNeurologico ??= "";
+                Paciente.ImpresionDiagnostica??= "";
+                Paciente.Conducta ??= "";
+                Paciente.Evolucion ??= "";
+
+                PacienteRepository.AgregarPaciente(Paciente);
+
+                MessageBox.Show("Paciente registrado correctamente.",
+                    "Registro exitoso",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Information);
             }
+            catch (Exception ex)
+            {
+                string logPath = Path.Combine(
+                    Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments),
+                    "HealthLogger",
+                    "error.log"
+                );
 
-            // Reemplazar null por cadena vacía para evitar errores en la BD
-            Paciente.CI ??= "";
-            Paciente.Telefono ??= "";
-            Paciente.ContactoEmergencia ??= "";
-            Paciente.TelefonoEmergencia ??= "";
-            Paciente.Antecedentes ??= "";
-            Paciente.Alergias ??= "";
-            Paciente.Observaciones ??= "";
-
-            PacienteRepository.AgregarPaciente(Paciente);
-            MessageBox.Show("Paciente registrado correctamente.",
-                "Registro exitoso",
-                MessageBoxButton.OK,
-                MessageBoxImage.Information);
-
-            //Paciente = new Paciente { FechaNacimiento = new DateTime(2000, 1, 1) };
+                File.AppendAllText(logPath,
+                    $"{DateTime.Now:yyyy-MM-dd HH:mm:ss} - {ex.Message}\n{ex.StackTrace}\n\n");
+                MessageBox.Show(
+                    $"Ocurrió un error al guardar el paciente:\n\n{ex.Message}\n\nDetalles:\n{ex.StackTrace}",
+                    "Error inesperado",
+                    MessageBoxButton.OK,
+                    MessageBoxImage.Error
+                );
+            }
         }
+
     }
 }
