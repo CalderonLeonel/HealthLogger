@@ -10,7 +10,7 @@ namespace HealthLogger.ViewModels
     {
         public Paciente Paciente { get; set; } = new Paciente();
         public List<OpcionSexo> OpcionesSexo { get; set; }
-
+        public List<OpcionEstadoCivil> OpcionesEstadoCivil { get; set; }
         public ICommand GuardarCommand => new RelayCommand(GuardarPaciente);
 
         public RegistroPacienteViewModel()
@@ -22,6 +22,14 @@ namespace HealthLogger.ViewModels
                 new OpcionSexo { Valor = "M", Texto = "Hombre" },
                 new OpcionSexo { Valor = "F", Texto = "Mujer" }
             };
+            OpcionesEstadoCivil = new List<OpcionEstadoCivil>
+            {
+                new OpcionEstadoCivil { Valor = "0", Texto = "Soltero" },
+                new OpcionEstadoCivil { Valor = "1", Texto = "Casado" },
+                new OpcionEstadoCivil { Valor = "2", Texto = "Viudo" },
+                new OpcionEstadoCivil { Valor = "3", Texto = "Divorciado" },
+                new OpcionEstadoCivil { Valor = "4", Texto = "Concubino" }
+            };
         }
 
         private void GuardarPaciente()
@@ -31,21 +39,28 @@ namespace HealthLogger.ViewModels
                 // Validar campos requeridos
                 if (string.IsNullOrWhiteSpace(Paciente.Nombres) ||
                     string.IsNullOrWhiteSpace(Paciente.Apellidos) ||
+                    string.IsNullOrWhiteSpace(Paciente.EstadoCivil) ||
                     string.IsNullOrWhiteSpace(Paciente.Sexo))
                 {
-                    MessageBox.Show("Los campos Nombres, Apellidos, Fecha de Nacimiento y Sexo son obligatorios.",
+                    MessageBox.Show("Los campos Nombres, Apellidos, Fecha de Nacimiento, Estado Civil y Género son obligatorios.",
                                     "Campos requeridos", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
 
                 // Reemplazar null por cadena vacía para evitar errores en la BD
                 Paciente.CI ??= "";
+                Paciente.Direccion ??= "";
                 Paciente.Telefono ??= "";
+                Paciente.Profesion ??= "";
                 Paciente.ContactoEmergencia ??= "";
                 Paciente.TelefonoEmergencia ??= "";
+                Paciente.MotivoConsulta ??= "";
+                Paciente.EnfermedadActual ??= "";
                 Paciente.Antecedentes ??= "";
-                Paciente.Alergias ??= "";
-                Paciente.Observaciones ??= "";
+                Paciente.ExamenNeurologico ??= "";
+                Paciente.ImpresionDiagnostica??= "";
+                Paciente.Conducta ??= "";
+                Paciente.Evolucion ??= "";
 
                 PacienteRepository.AgregarPaciente(Paciente);
 

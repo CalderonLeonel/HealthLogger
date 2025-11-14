@@ -13,11 +13,13 @@ namespace HealthLogger.Data
 
             using var conn = Database.GetConnection();
 
-            string sql = @"INSERT INTO Pacientes (Nombres, Apellidos, CI, FechaNacimiento, Sexo, Telefono,
-                ContactoEmergencia, TelefonoEmergencia, Antecedentes, Alergias, Observaciones,
+            string sql = @"INSERT INTO Pacientes (Nombres, Apellidos, CI, FechaNacimiento, Sexo, Direccion, Telefono,
+                Profesion, EstadoCivil, ContactoEmergencia, TelefonoEmergencia, MotivoConsulta, EnfermedadActual,
+                Antecedentes, ExamenNeurologico, ImpresionDiagnostica, Conducta, Evolucion,
                 CreatedAt, UpdatedAt, Estado)
-                VALUES (@Nombres, @Apellidos, @CI, @FechaNacimiento, @Sexo, @Telefono,
-                @ContactoEmergencia, @TelefonoEmergencia, @Antecedentes, @Alergias, @Observaciones,
+                VALUES (@Nombres, @Apellidos, @CI, @FechaNacimiento, @Sexo, @Direccion, @Telefono,
+                @Profesion, @EstadoCivil, @ContactoEmergencia, @TelefonoEmergencia, @MotivoConsulta, @EnfermedadActual,
+                @Antecedentes, @ExamenNeurologico, @ImpresionDiagnostica, @Conducta, @Evolucion,
                 @CreatedAt, @UpdatedAt, @Estado)";
             conn.Execute(sql, paciente);
         }
@@ -69,12 +71,19 @@ namespace HealthLogger.Data
             CI = @CI,
             FechaNacimiento = @FechaNacimiento,
             Sexo = @Sexo,
+            Direccion = @Direccion,
             Telefono = @Telefono,
+            Profesion = @Profesion,
+            EstadoCivil = @EstadoCivil,
             ContactoEmergencia = @ContactoEmergencia,
             TelefonoEmergencia = @TelefonoEmergencia,
+            MotivoConsulta = @MotivoConsulta,
+            EnfermedadActual = @EnfermedadActual,
             Antecedentes = @Antecedentes,
-            Alergias = @Alergias,
-            Observaciones = @Observaciones,
+            ExamenNeurologico = @ExamenNeurologico,
+            ImpresionDiagnostica = @ImpresionDiagnostica,
+            Conducta = @Conducta,
+            Evolucion = @Evolucion,
             UpdatedAt = @UpdatedAt
         WHERE Id = @Id";
 
@@ -84,13 +93,20 @@ namespace HealthLogger.Data
                 paciente.Apellidos,
                 paciente.CI,
                 paciente.FechaNacimiento,
+                paciente.Direccion,
                 paciente.Sexo,
                 paciente.Telefono,
+                paciente.Profesion,
+                paciente.EstadoCivil,
                 paciente.ContactoEmergencia,
                 paciente.TelefonoEmergencia,
+                paciente.MotivoConsulta,
+                paciente.EnfermedadActual,
                 paciente.Antecedentes,
-                paciente.Alergias,
-                paciente.Observaciones,
+                paciente.ExamenNeurologico,
+                paciente.ImpresionDiagnostica,
+                paciente.Conducta,
+                paciente.Evolucion,
                 paciente.UpdatedAt,
                 paciente.Id
             });

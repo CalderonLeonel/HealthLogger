@@ -247,7 +247,7 @@ namespace HealthLogger.Views
             seleccionarBtn.SetValue(Button.StyleProperty, Application.Current.FindResource("MaterialDesignIconButton") as Style);
 
             var iconVer = new FrameworkElementFactory(typeof(MaterialDesignThemes.Wpf.PackIcon));
-            iconVer.SetValue(MaterialDesignThemes.Wpf.PackIcon.KindProperty, MaterialDesignThemes.Wpf.PackIconKind.Arrow);
+            iconVer.SetValue(MaterialDesignThemes.Wpf.PackIcon.KindProperty, MaterialDesignThemes.Wpf.PackIconKind.FileText);
             iconVer.SetValue(MaterialDesignThemes.Wpf.PackIcon.ForegroundProperty, Brushes.DodgerBlue);
             iconVer.SetValue(FrameworkElement.WidthProperty, 20.0);
             iconVer.SetValue(FrameworkElement.HeightProperty, 20.0);
@@ -265,7 +265,7 @@ namespace HealthLogger.Views
 
             // Icono del botón Ocultar
             var iconDesocultar = new FrameworkElementFactory(typeof(MaterialDesignThemes.Wpf.PackIcon));
-            iconDesocultar.SetValue(MaterialDesignThemes.Wpf.PackIcon.KindProperty, MaterialDesignThemes.Wpf.PackIconKind.EyeOffOutline);
+            iconDesocultar.SetValue(MaterialDesignThemes.Wpf.PackIcon.KindProperty, MaterialDesignThemes.Wpf.PackIconKind.EyeOutline);
             iconDesocultar.SetValue(MaterialDesignThemes.Wpf.PackIcon.ForegroundProperty, Brushes.DodgerBlue);
             iconDesocultar.SetValue(FrameworkElement.WidthProperty, 20.0);
             iconDesocultar.SetValue(FrameworkElement.HeightProperty, 20.0);
@@ -290,7 +290,7 @@ namespace HealthLogger.Views
 
             // Icono del botón Ocultar
             var iconOcultar = new FrameworkElementFactory(typeof(MaterialDesignThemes.Wpf.PackIcon));
-            iconOcultar.SetValue(MaterialDesignThemes.Wpf.PackIcon.KindProperty, MaterialDesignThemes.Wpf.PackIconKind.EyeOutline);
+            iconOcultar.SetValue(MaterialDesignThemes.Wpf.PackIcon.KindProperty, MaterialDesignThemes.Wpf.PackIconKind.EyeOffOutline);
             iconOcultar.SetValue(MaterialDesignThemes.Wpf.PackIcon.ForegroundProperty, Brushes.DodgerBlue);
             iconOcultar.SetValue(FrameworkElement.WidthProperty, 20.0);
             iconOcultar.SetValue(FrameworkElement.HeightProperty, 20.0);

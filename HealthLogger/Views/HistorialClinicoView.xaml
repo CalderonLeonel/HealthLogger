@@ -7,7 +7,7 @@
              mc:Ignorable="d"
              FontSize="16"
              FontFamily="Roboto"
-             d:DesignHeight="800" d:DesignWidth="900">
+             d:DesignHeight="1200" d:DesignWidth="900">
 
     <Grid Background="#f0f0f0">
         <Border Background="White" 
@@ -27,19 +27,20 @@
                 <!-- 🔹 Encabezado fijo -->
                 <DockPanel Grid.Row="0" Margin="0 0 0 20">
                     <Button Content="⟵ Volver"
-                            Click="Volver_Click"
-                            Style="{StaticResource MaterialDesignOutlinedButton}"
-                            DockPanel.Dock="Left" Width="100"/>
-
-                    <TextBlock Text="{Binding PacienteNombreCompleto}" 
-                               FontSize="20" FontWeight="Bold"
-                               HorizontalAlignment="Center"
-                               VerticalAlignment="Center"/>
-
-                    <Button Content="💾 Guardar Cambios"
+                        Click="Volver_Click"
+                        Style="{StaticResource MaterialDesignOutlinedButton}"
+                        DockPanel.Dock="Left" Width="100"/>
+                    <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" HorizontalAlignment="Right">
+                        <Button Content="💾 Guardar Cambios"
                             Click="Guardar_Click"
                             Style="{StaticResource MaterialDesignRaisedButton}"
-                            DockPanel.Dock="Right" Width="170"/>
+                            Width="170"/>
+                        <Button Content="🖨 Imprimir PDF"
+                            Click="GenerarPdf_Click"
+                            Style="{StaticResource MaterialDesignOutlinedButton}"
+                                Margin="5 0 0 0"
+                            Width="150"/>
+                    </StackPanel>
                 </DockPanel>
 
                 <!-- 🔹 Contenido desplazable -->
@@ -56,8 +57,8 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel Grid.Column="0" Margin="10">
-                                <TextBlock Text="Datos personales" 
-                                           FontWeight="Bold" FontSize="16" Margin="0 0 0 10"/>
+                                <TextBlock Text="Datos de Filiación" 
+                                           FontWeight="Bold" FontSize="20" Margin="0 0 0 10"/>
 
                                 <Grid>
                                     <Grid.ColumnDefinitions>
@@ -74,16 +75,16 @@
                                              Text="{Binding Paciente.Apellidos, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                              Margin="5 0 0 5" Grid.Column="1"/>
                                 </Grid>
-                                <TextBox materialDesign:HintAssist.Hint="CI / Documento" TextChanged="AnyFieldChanged"
+                                <TextBox materialDesign:HintAssist.Hint="C.I." TextChanged="AnyFieldChanged"
                                          Text="{Binding Paciente.CI, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0 5"/>
-                                <ComboBox materialDesign:HintAssist.Hint="Sexo"
-                                          ItemsSource="{Binding DataContext.OpcionesSexo}"
-                                          DisplayMemberPath="Texto"
-                                          SelectedValuePath="Valor"
-                                          SelectedValue="{Binding Paciente.Sexo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                          SelectionChanged="AnyFieldChanged"
-                                          Margin="0 5"/>
+                                <TextBox materialDesign:HintAssist.Hint="Profesión" TextChanged="AnyFieldChanged"
+                                         Text="{Binding Paciente.Profesion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0 5"/>
+                                <TextBox materialDesign:HintAssist.Hint="Dirección" TextChanged="AnyFieldChanged"
+                                         Text="{Binding Paciente.Direccion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                         Margin="0 5"/>
+
                                 <DatePicker SelectedDate="{Binding Paciente.FechaNacimiento, UpdateSourceTrigger=PropertyChanged}"
                                             Margin="0 5" materialDesign:HintAssist.Hint="Fecha de Nacimiento"/>
 
@@ -107,23 +108,61 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="1" Margin="10">
-                                <TextBlock Text="Contactos" 
+                                <TextBlock Text="" 
                                            FontWeight="Bold" FontSize="16" Margin="0 0 0 10"/>
                                 <TextBox materialDesign:HintAssist.Hint="Teléfono" TextChanged="AnyFieldChanged"
                                          Text="{Binding Paciente.Telefono, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0 5"/>
-                                <TextBox materialDesign:HintAssist.Hint="Contacto de Emergencia" TextChanged="AnyFieldChanged"
+                                <TextBox materialDesign:HintAssist.Hint="Nombre de Contacto de Emergencia" TextChanged="AnyFieldChanged"
                                          Text="{Binding Paciente.ContactoEmergencia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0 5"/>
                                 <TextBox materialDesign:HintAssist.Hint="Teléfono de Contacto de Emergencia" TextChanged="AnyFieldChanged"
                                          Text="{Binding Paciente.TelefonoEmergencia, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                          Margin="0 5"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <!-- 50% -->
+                                        <ColumnDefinition Width="*" />
+                                        <!-- 50% -->
+                                    </Grid.ColumnDefinitions>
+                                    <ComboBox materialDesign:HintAssist.Hint="Sexo"
+                                          ItemsSource="{Binding DataContext.OpcionesSexo}"
+                                          DisplayMemberPath="Texto"
+                                          SelectedValuePath="Valor"
+                                          SelectedValue="{Binding Paciente.Sexo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectionChanged="AnyFieldChanged"
+                                          Margin="0 5 5 5"/>
+                                    <ComboBox materialDesign:HintAssist.Hint="Estado Civil" Grid.Column="1"
+                                          ItemsSource="{Binding DataContext.OpcionesEstadoCivil}"
+                                          DisplayMemberPath="Texto"
+                                          SelectedValuePath="Valor"
+                                          SelectedValue="{Binding Paciente.EstadoCivil, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                          SelectionChanged="AnyFieldChanged"
+                                          Margin="5 5 0 5"/>
+                                </Grid>
                             </StackPanel>
                         </Grid>
 
                         <!-- Cuerpo clínico tipo documento -->
                         <StackPanel>
-                            <TextBlock Text="Antecedentes" FontWeight="Bold" FontSize="16" Margin="0 10 0 5"/>
+                            <TextBlock Text="Motivo de Consulta" FontWeight="Bold" FontSize="16" Margin="0 10 0 5"/>
+                            <TextBox x:Name="TxtMotivoConsulta"
+                                     AcceptsReturn="True"
+                                     MinHeight="80"
+                                     TextWrapping="Wrap"
+                                     TextChanged="AutoGrowTextBox"
+                                     Text="{Binding Paciente.MotivoConsulta, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <TextBlock Text="Enfermedad Actual" FontWeight="Bold" FontSize="16" Margin="0 10 0 5"/>
+                            <TextBox x:Name="TxtEnfermedadActual"
+                                     AcceptsReturn="True"
+                                     MinHeight="80"
+                                     TextWrapping="Wrap"
+                                     TextChanged="AutoGrowTextBox"
+                                     Text="{Binding Paciente.EnfermedadActual, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <TextBlock Text="Antecedentes - Alergias" FontWeight="Bold" FontSize="16" Margin="0 10 0 5"/>
                             <TextBox x:Name="TxtAntecedentes"
                                      AcceptsReturn="True"
                                      MinHeight="80"
@@ -132,22 +171,38 @@
                                      Text="{Binding Paciente.Antecedentes, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
-                            <TextBlock Text="Alergias" FontWeight="Bold" FontSize="16" Margin="0 15 0 5"/>
-                            <TextBox x:Name="TxtAlergias"
+                            <TextBlock Text="Examen Neurológico" FontWeight="Bold" FontSize="16" Margin="0 15 0 5"/>
+                            <TextBox x:Name="TxtExamenNeurologico"
                                      AcceptsReturn="True"
                                      MinHeight="80"
                                      TextWrapping="Wrap"
                                      TextChanged="AutoGrowTextBox"
-                                     Text="{Binding Paciente.Alergias, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding Paciente.ExamenNeurologico, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
 
-                            <TextBlock Text="Observaciones" FontWeight="Bold" FontSize="16" Margin="0 15 0 5"/>
-                            <TextBox x:Name="TxtObservaciones"
+                            <TextBlock Text="Impresión Diagnóstica" FontWeight="Bold" FontSize="16" Margin="0 15 0 5"/>
+                            <TextBox x:Name="TxtImpresionDiagnostica"
                                      AcceptsReturn="True"
                                      MinHeight="80"
                                      TextWrapping="Wrap"
                                      TextChanged="AutoGrowTextBox"
-                                     Text="{Binding Paciente.Observaciones, UpdateSourceTrigger=PropertyChanged}"
+                                     Text="{Binding Paciente.ImpresionDiagnostica, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <TextBlock Text="Conducta" FontWeight="Bold" FontSize="16" Margin="0 15 0 5"/>
+                            <TextBox x:Name="TxtConducta"
+                                     AcceptsReturn="True"
+                                     MinHeight="80"
+                                     TextWrapping="Wrap"
+                                     TextChanged="AutoGrowTextBox"
+                                     Text="{Binding Paciente.Conducta, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
+                            <TextBlock Text="Evolución" FontWeight="Bold" FontSize="16" Margin="0 15 0 5"/>
+                            <TextBox x:Name="TxtEvolucion"
+                                     AcceptsReturn="True"
+                                     MinHeight="80"
+                                     TextWrapping="Wrap"
+                                     TextChanged="AutoGrowTextBox"
+                                     Text="{Binding Paciente.Evolucion, UpdateSourceTrigger=PropertyChanged}"
                                      Style="{StaticResource MaterialDesignOutlinedTextBox}"/>
                         </StackPanel>
 
